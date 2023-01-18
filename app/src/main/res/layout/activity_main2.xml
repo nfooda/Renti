@@ -1,212 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".MainActivity3"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="115dp"
+        android:layout_height="100dp"
         android:orientation="horizontal"
-        android:background="@drawable/round_rec_shape">
-        <!--        android:background="@drawable/round_rec_shape"-->
+        android:background="@drawable/curved_toolbar"
+        android:layout_marginBottom="20dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:fontFamily="@font/poppin_medium"
-            android:gravity="center_horizontal|left|center_vertical"
-            android:paddingLeft="30dp"
-            android:text="Hi, User Name!"
-            android:textColor="#FEFEFE"
-            android:textSize="27sp"
-            android:textStyle="bold" />
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="78dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:backgroundTint="#5BC0F8"
-            app:srcCompat="@drawable/icons8_notification_100" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <SearchView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="All Items"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            />
     </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppin_medium"
-        android:gravity="center_horizontal|left|center_vertical"
-        android:paddingLeft="30dp"
-        android:text="Categories"
-        android:textColor="@color/black"
-        android:textSize="27sp"
-        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:paddingBottom="30dp"
-        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
 
-        <ImageButton
-            android:id="@+id/carButton"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_gravity="left"
-            android:src="@drawable/cars_button"
-            android:text="Cars"
-            android:textAllCaps="false"
-            android:background="@null"
-            android:scaleType="fitCenter"/>
+            <SearchView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-        <ImageButton
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_gravity="right"
-            android:src="@drawable/clothing_button"
-            android:text="Clothing"
-            android:textAllCaps="false"
-            android:translationX="70dp"
-            android:background="@null"
-            android:scaleType="fitCenter"/>
+        </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:paddingBottom="30dp">
-
-        <ImageButton
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_gravity="left"
-            android:src="@drawable/appliances_button"
-            android:text="Appliances"
-            android:textAllCaps="false"
-            android:background="@null"
-            android:scaleType="fitCenter"/>
-
-        <ImageButton
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_gravity="right"
-            android:src="@drawable/books_button"
-            android:text="Books"
-            android:textAllCaps="false"
-            android:translationX="70dp"
-            android:background="@null"
-            android:scaleType="fitCenter"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:paddingBottom="30dp">
-        <ImageButton
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:src="@drawable/real_estate_button"
-            android:text="Real Estate"
-            android:textAllCaps="false"
-            android:layout_gravity="left"
-            android:background="@null"
-            android:scaleType="fitCenter"/>
-
-        <ImageButton
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_gravity="right"
-            android:text="Bikes"
-            android:src="@drawable/bikes_button"
-            android:textAllCaps="false"
-            android:translationX="70dp"
-            android:background="@null"
-            android:scaleType="fitCenter"/>
-
-    </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/navBar"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:padding="10dp"
-        android:background="@color/blue_2"
-        android:orientation="horizontal"
-        android:gravity="bottom"
-        android:layout_gravity="bottom"
-
-        >
-
-        <ImageButton
-            android:layout_width="20dp"
-            android:layout_height="60dp"
-            android:scaleType="fitCenter"
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
             android:layout_weight="1"
-            android:backgroundTint="#5BC0F8"
-            app:srcCompat="@drawable/icons8_home_page_100" />
-
-        <ImageButton
-            android:layout_width="20dp"
-            android:layout_height="62dp"
-            android:layout_weight="1"
-            android:backgroundTint="#5BC0F8"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/icons8_chat_message_100" />
-
-        <ImageButton
-            android:layout_width="55dp"
-            android:layout_height="56dp"
-            android:background="@drawable/round_button"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/icons8_plus_math_100" />
-        <!--        android:background="@drawable/round_button"-->
-
-        <ImageButton
-            android:layout_width="20dp"
-            android:layout_height="62dp"
-            android:layout_weight="1"
-            android:backgroundTint="#5BC0F8"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/icons8_line_chart_100" />
-
-        <ImageButton
-            android:id="@+id/navProfile"
-            android:layout_width="20dp"
-            android:layout_height="62dp"
-            android:layout_weight="1"
-            android:backgroundTint="#5BC0F8"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/icons8_avatar_100" />
-
+            android:divider="@null"/>
     </LinearLayout>
-
 
 </LinearLayout>
