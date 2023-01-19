@@ -8,43 +8,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.itemdetailsscreen.databinding.ActivitySignupBinding;
+
 public class SignupActivity extends AppCompatActivity {
+    private ActivitySignupBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
-        Button loginBtn = (Button) findViewById(R.id.login_signupAct);
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public  void onClick(View v) {
-                Intent i = new Intent(SignupActivity.this, SigninActivity.class);
-                startActivity (i);
-            }
-        });
+        binding = ActivitySignupBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setListeners();
 
-        Button signupBtn = (Button) findViewById(R.id.signup_signupAct);
-        signupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // if (CheckAllFields()) {
-                    Toast.makeText(getApplicationContext(), "Trying to sign up!",
-                            Toast.LENGTH_SHORT).show();
-                // }
-            }
-        });
     }
 
-//    private boolean CheckAllFields() {
-//        if (emailEt.length() == 0) {
-//            emailEt.setError("This field is required");
-//            return false;
-//        }
-//        if (passwordEt.length() == 0) {
-//            passwordEt.setError("This field is required");
-//            return false;
-//        }
-//        return true;
-//    }
-
+    private void setListeners() {
+        binding.loginSignupAct.setOnClickListener(v ->
+                startActivity(new Intent(getApplicationContext(), SigninActivity.class)));
+    }
 }

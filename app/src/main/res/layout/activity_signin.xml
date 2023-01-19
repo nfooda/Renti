@@ -36,6 +36,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="15dp"
             android:hint="password"
+            android:imeOptions="actionDone"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:background="@drawable/edit_text_white"/>
