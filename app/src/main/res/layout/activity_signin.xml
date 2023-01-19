@@ -27,6 +27,7 @@
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:background="@drawable/edit_text_white"/>
         <EditText
             android:id="@+id/password"
@@ -36,6 +37,7 @@
             android:layout_marginTop="15dp"
             android:hint="password"
             android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:background="@drawable/edit_text_white"/>
         <Button
             android:id="@+id/login_logAct"
