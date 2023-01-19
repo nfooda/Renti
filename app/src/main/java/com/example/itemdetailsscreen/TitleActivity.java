@@ -4,8 +4,14 @@ package com.example.itemdetailsscreen;
 
         import android.content.Intent;
         import android.os.Bundle;
+        import android.util.Log;
         import android.view.View;
         import android.widget.Button;
+        import android.widget.Toast;
+
+        import com.google.firebase.firestore.FirebaseFirestore;
+
+        import java.util.HashMap;
 
 public class TitleActivity extends AppCompatActivity {
 
@@ -13,6 +19,9 @@ public class TitleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
+        setListeners();
+    }
+    private void setListeners() {
         Button loginBtn = (Button) findViewById(R.id.login);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
