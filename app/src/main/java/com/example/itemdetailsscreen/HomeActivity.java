@@ -7,17 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class MainActivity1 extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main1);
+        setContentView(R.layout.activity_home);
         ImageButton cars = (ImageButton) findViewById(R.id.carButton);
         cars.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity1.this, MainActivity2.class);
+                Intent i = new Intent(HomeActivity.this, ItemsListActivity.class);
                 startActivity (i);
 
             }
@@ -26,7 +26,7 @@ public class MainActivity1 extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity1.this, MainActivity4.class);
+                Intent i = new Intent(HomeActivity.this, ProfileActivity.class);
                 startActivity (i);
 
             }

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-public class MainActivity2 extends AppCompatActivity {
+public class ItemsListActivity extends AppCompatActivity {
 
     ListView listView;
     String [] names = {"Honda Civic", "Item Name", "Item Name","Item Name","Item Name","Item Name","Item Name","Item Name","Item Name","Item Name"};
@@ -31,7 +31,7 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_items_list);
 
         listView = (ListView) findViewById(R.id.listview);
 
@@ -40,7 +40,7 @@ public class MainActivity2 extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MainActivity2.this, MainActivity3.class);
+                Intent intent = new Intent(ItemsListActivity.this, ItemDetailsActivity.class);
                 startActivity(intent);
             }
 

@@ -13,14 +13,14 @@ import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
 
-public class MainActivity3 extends AppCompatActivity {
+public class ItemDetailsActivity extends AppCompatActivity {
     // Urls of our images.
     int honda = R.drawable.honda_1;
     int honda_2 = R.drawable.honda_2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
+        setContentView(R.layout.activity_item_details);
 
         // we are creating array list for storing our image urls.
         ArrayList<SliderData> sliderDataArrayList = new ArrayList<>();
