@@ -95,9 +95,6 @@ public class SignupActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
-
     }
 
     private void addUserToDatabase(FirebaseUser authUser) {
@@ -116,15 +113,18 @@ public class SignupActivity extends AppCompatActivity {
                 .addOnSuccessListener(documentReference -> {
                     loading(false);
                     preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                    preferenceManager.putString(Constants.KEY_FIREBASE_ID, documentReference.getId());
                     preferenceManager.putString(Constants.KEY_USER_ID, authUser.getUid());
                     preferenceManager.putString(Constants.KEY_NAME, binding.fullName.getText().toString());
                     preferenceManager.putString(Constants.KEY_IMAGE, encodedImage);
                     preferenceManager.putString(Constants.KEY_CITY, binding.city.getText().toString());
                     preferenceManager.putString(Constants.KEY_EMAIL, binding.email.getText().toString());
                     preferenceManager.putString(Constants.KEY_PHONE, binding.phone.getText().toString());
+                    Log.d("FIRESTORE", "Data was stored Successfully");
                 })
                 .addOnFailureListener(exception -> {
                     loading(false);
+                    Log.d("FIRESTORE", "Data was wasn't stored to firebase");
                     showToast(exception.getMessage());
                 });
     }
