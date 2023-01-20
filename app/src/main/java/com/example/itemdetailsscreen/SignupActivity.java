@@ -3,6 +3,7 @@ package com.example.itemdetailsscreen;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,11 @@ import android.widget.Toast;
 import com.example.itemdetailsscreen.databinding.ActivitySignupBinding;
 import com.example.itemdetailsscreen.utilities.Constants;
 import com.example.itemdetailsscreen.utilities.PreferenceManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
@@ -33,10 +40,12 @@ public class SignupActivity extends AppCompatActivity {
     private ActivitySignupBinding binding;
     private String encodedImage;
     private PreferenceManager preferenceManager;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
+        mAuth = FirebaseAuth.getInstance();
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
         encodedImage = encodeImage(BitmapFactory.decodeResource(getApplicationContext().getResources(),
@@ -66,6 +75,32 @@ public class SignupActivity extends AppCompatActivity {
 
     private void signup() {
         loading(true);
+        String email = binding.email.getText().toString();
+        String password = binding.password.getText().toString();
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("AUTH", "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            addUserToDatabase(user);
+                            updateUI();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            loading(false);
+                            Log.w("AUTH", "createUserWithEmail:failure", task.getException());
+                            showToast("Authentication failed");
+                        }
+                    }
+                });
+
+
+
+    }
+
+    private void addUserToDatabase(FirebaseUser authUser) {
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         HashMap<String, Object> user = new HashMap<>();
         user.put(Constants.KEY_NAME, binding.fullName.getText().toString());
@@ -74,22 +109,30 @@ public class SignupActivity extends AppCompatActivity {
         user.put(Constants.KEY_PASSWORD, binding.password.getText().toString());
         user.put(Constants.KEY_IMAGE, encodedImage);
         user.put(Constants.KEY_CITY, binding.city.getText().toString());
+        user.put(Constants.KEY_USER_ID, authUser.getUid());
+        // TODO: Send data to mySql database
         database.collection(Constants.KEY_COLLECTION_USERS)
                 .add(user)
                 .addOnSuccessListener(documentReference -> {
                     loading(false);
                     preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-                    preferenceManager.putString(Constants.KEY_USER_ID, documentReference.getId());
+                    preferenceManager.putString(Constants.KEY_USER_ID, authUser.getUid());
                     preferenceManager.putString(Constants.KEY_NAME, binding.fullName.getText().toString());
-                    preferenceManager.putString(Constants.KEY_NAME, encodedImage);
-                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    preferenceManager.putString(Constants.KEY_IMAGE, encodedImage);
+                    preferenceManager.putString(Constants.KEY_CITY, binding.city.getText().toString());
+                    preferenceManager.putString(Constants.KEY_EMAIL, binding.email.getText().toString());
+                    preferenceManager.putString(Constants.KEY_PHONE, binding.phone.getText().toString());
                 })
                 .addOnFailureListener(exception -> {
                     loading(false);
                     showToast(exception.getMessage());
                 });
+    }
+
+    private void updateUI() {
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private String encodeImage(Bitmap bitmap) {
