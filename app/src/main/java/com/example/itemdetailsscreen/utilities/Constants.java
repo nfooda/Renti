@@ -13,5 +13,6 @@ public class Constants {
     public static final String KEY_CITY = "city";
     public static final String KEY_FIREBASE_ID = "firebaseId";
     public static final String KEY_FCM_TOKEN = "fcmToken";
+    public static final String KEY_USER = "user";
 
 }

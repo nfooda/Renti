@@ -2,6 +2,7 @@ package com.example.itemdetailsscreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -9,6 +10,9 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.itemdetailsscreen.databinding.ActivityItemDetailsBinding;
+import com.example.itemdetailsscreen.models.User;
+import com.example.itemdetailsscreen.utilities.Constants;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
@@ -17,11 +21,14 @@ public class ItemDetailsActivity extends AppCompatActivity {
     // Urls of our images.
     int honda = R.drawable.honda_1;
     int honda_2 = R.drawable.honda_2;
+    ActivityItemDetailsBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_details);
-
+        binding = ActivityItemDetailsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setListeners();
         // we are creating array list for storing our image urls.
         ArrayList<SliderData> sliderDataArrayList = new ArrayList<>();
 
@@ -65,5 +72,18 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 r.getDisplayMetrics()
         );
         return (int) px;
+    }
+
+    private void setListeners() {
+        binding.contactOwnerBtn.setOnClickListener(v -> {
+            User dummyUser = new User();
+            dummyUser.email = "rentiapp@gmail.com";
+            dummyUser.name = "Abdallah Taha";
+            dummyUser.image = "/9j/4AAQSkZJRgABAQAAAQABAAD/4gIoSUNDX1BST0ZJTEUAAQEAAAIYAAAAAAQwAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAAHRyWFlaAAABZAAAABRnWFlaAAABeAAAABRiWFlaAAABjAAAABRyVFJDAAABoAAAAChnVFJDAAABoAAAAChiVFJDAAABoAAAACh3dHB0AAAByAAAABRjcHJ0AAAB3AAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAFgAAAAcAHMAUgBHAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhZWiAAAAAAAABvogAAOPUAAAOQWFlaIAAAAAAAAGKZAAC3hQAAGNpYWVogAAAAAAAAJKAAAA+EAAC2z3BhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1sdWMAAAAAAAAAAQAAAAxlblVTAAAAIAAAABwARwBvAG8AZwBsAGUAIABJAG4AYwAuACAAMgAwADEANv/bAEMAEAsMDgwKEA4NDhIREBMYKBoYFhYYMSMlHSg6Mz08OTM4N0BIXE5ARFdFNzhQbVFXX2JnaGc+TXF5cGR4XGVnY//bAEMBERISGBUYLxoaL2NCOEJjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY//AABEIAMgAlgMBIgACEQEDEQH/xAAVAAEBAAAAAAAAAAAAAAAAAAAABf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/xAAVAQEBAAAAAAAAAAAAAAAAAAAABf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIwCUiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//Z";
+            dummyUser.token = "eGaj_-BjQ_yWF27saBccDD:APA91bG4g9agyrAV5DNsP8nbnbVk9vkVkhl_vBJ9067J0lUo_h0FiyogAZRT5bQv9d0V2CdrcLLDYZrBwU-sDB7zIT7b3jI0YbLenpcI1_nhkhNmzrHpOtm6lmFoEQInCcOCM-vRw0XP";
+            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+            intent.putExtra(Constants.KEY_USER, dummyUser);
+            startActivity(intent);
+        });
     }
 }

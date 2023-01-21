@@ -272,6 +272,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/contact_owner_btn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
@@ -282,6 +283,7 @@
             android:textColor="@color/blue_1"/>
 
         <Button
+            android:id="@+id/rent_request_btn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
