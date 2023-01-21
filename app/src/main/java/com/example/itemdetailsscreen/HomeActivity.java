@@ -26,7 +26,7 @@ public class HomeActivity extends AppCompatActivity {
         preferenceManager = new PreferenceManager(getApplicationContext());
         setContentView(R.layout.activity_home);
 
-        getToken();
+        // getToken();
 
         ImageButton cars = (ImageButton) findViewById(R.id.carButton);
         cars.setOnClickListener(new View.OnClickListener() {
