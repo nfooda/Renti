@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">Renti</string>
+    <string name="filler_dsc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string-array name="periods">
+        <item>hr</item>
+        <item>day</item>
+        <item>week</item>
+        <item>month</item>
+        <item>year</item>
+    </string-array>
+
+    <string-array name="cities">
+        <item>Cairo</item>
+        <item>Alexandria</item>
+        <item>Giza</item>
+        <item>Shubra El-Kheima</item>
+        <item>Port Said</item>
+        <item>Suez</item>
+        <item>Luxor</item>
+        <item>al-Mansura</item>
+        <item>El-Mahalla El-Kubra</item>
+        <item>Tanta</item>
+        <item>Asyut</item>
+        <item>Ismailia</item>
+        <item>Fayyum</item>
+        <item>Zagazig</item>
+        <item>Aswan</item>
+        <item>Damietta</item>
+        <item>Damanhur</item>
+        <item>al-Minya</item>
+        <item>Beni Suef</item>
+        <item>Qena</item>
+        <item>Sohag</item>
+        <item>Hurghada</item>
+        <item>6th of October City</item>
+        <item>Shibin El Kom</item>
+        <item>Banha</item>
+        <item>Kafr el-Sheikh</item>
+        <item>Arish</item>
+        <item>Mallawi</item>
+        <item>10th of Ramadan City</item>
+        <item>Bilbais</item>
+        <item>Marsa Matruh</item>
+        <item>Idfu</item>
+        <item>Mit Ghamr</item>
+        <item>El-Hawamdeyya</item>
+        <item>Desouk</item>
+        <item>Qalyub</item>
+        <item>Abu Kabir</item>
+        <item>Kafr el-Dawwar</item>
+        <item>Girga</item>
+        <item>Akhmim</item>
+        <item>Matareya</item>
+
+    </string-array>
+
+    <string-array name="categories">
+        <item>Cars</item>
+        <item>Clothing</item>
+        <item>Appliances</item>
+        <item>Books</item>
+        <item>Real Estate</item>
+        <item>Bikes</item>
+    </string-array>
+
+
+</resources>
+
