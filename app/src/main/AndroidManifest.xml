@@ -16,7 +16,14 @@
         android:theme="@style/Theme.ItemDetailsScreen"
         tools:targetApi="31">
         <activity
-            android:name=".ChatsActivity"
+            android:name=".ChatActivity"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".RecentChatsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

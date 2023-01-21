@@ -6,14 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
-
-import com.example.itemdetailsscreen.utilities.Constants;
-import com.example.itemdetailsscreen.utilities.PreferenceManager;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingService;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -43,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
         });
         ImageButton chats = (ImageButton) findViewById(R.id.nav_chat);
         chats.setOnClickListener(view -> {
-            Intent i = new Intent(HomeActivity.this, ChatsActivity.class);
+            Intent i = new Intent(HomeActivity.this, RecentChatsActivity.class);
             startActivity(i);
         });
     }

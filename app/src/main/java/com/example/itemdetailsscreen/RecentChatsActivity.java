@@ -12,7 +12,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-public class ChatsActivity extends AppCompatActivity {
+public class RecentChatsActivity extends AppCompatActivity {
 
     PreferenceManager preferenceManager;
     ActivityChatsBinding binding;
