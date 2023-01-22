@@ -37,6 +37,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         preferenceManager = new PreferenceManager(getApplicationContext());
         setContentView(R.layout.activity_home);
+        // getToken();
+
+        ImageButton profile = (ImageButton) findViewById(R.id.navProfile);
+        profile.setOnClickListener(this);
+        ImageButton addItem = (ImageButton) findViewById(R.id.plusItem);
+        addItem.setOnClickListener(this);
+        ImageButton chats = (ImageButton) findViewById(R.id.nav_chat);
+        chats.setOnClickListener(this);
+
+
         categories=findViewById(R.id.categories);
         int count=0;
         for(int i=0;i<categories.getChildCount();i++){
@@ -51,8 +61,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         search = (SearchView) findViewById(R.id.searchView2);
         SetupSearchView();
     }
-    
-    
+
+
     @Override
     public void onClick(View view) {
         ImageButton button = (ImageButton) view;
@@ -77,28 +87,28 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.navProfile:
-                i = new Intent(HomeActivity.this, ProfileActivity.class);
-                startActivity(i);
+                intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(intent);
                 break;
-                
+
             case R.id.plusItem:
-                i = new Intent(HomeActivity.this, AddItemActivity.class);
-                startActivity(i);
+                intent = new Intent(HomeActivity.this, AddItemActivity.class);
+                startActivity(intent);
                 break;
-                
+
             case R.id.nav_chat:
-                Intent i = new Intent(HomeActivity.this, RecentChatsActivity.class);
-                startActivity(i);
+                intent = new Intent(HomeActivity.this, RecentChatsActivity.class);
+                startActivity(intent);
                 break;
 
         }
     }
-    
+
     public void BtnClickHandler(View view) {
         ImageButton button = (ImageButton) view;
 
         Intent intent;
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.cars:
             case R.id.clothing:
             case R.id.appliances:
@@ -106,10 +116,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.realEstate:
             case R.id.bikes:
                 String categoryName = button.getTag().toString();
-                intent=new Intent(HomeActivity.this,ItemsListActivity.class);
-                intent.putExtra("listChoice",1);
+                intent = new Intent(HomeActivity.this, ItemsListActivity.class);
+                intent.putExtra("listChoice", 1);
                 intent.putExtra("categoryName", categoryName);
-                intent.putExtra("searchWord","");
+                intent.putExtra("searchWord", "");
                 startActivity(intent);
                 break;
 
@@ -117,21 +127,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.navProfile:
-                i = new Intent(HomeActivity.this, ProfileActivity.class);
-                startActivity(i);
+                intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(intent);
                 break;
-                
+
             case R.id.plusItem:
-                i = new Intent(HomeActivity.this, AddItemActivity.class);
-                startActivity(i);
+                intent = new Intent(HomeActivity.this, AddItemActivity.class);
+                startActivity(intent);
                 break;
-                
+
             case R.id.nav_chat:
                 Intent i = new Intent(HomeActivity.this, RecentChatsActivity.class);
                 startActivity(i);
                 break;
 
         }
+    }
 
     private void SetupSearchView(){
         Log.d("SetupSearchView","SetupSearchView entered");
@@ -156,16 +167,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                 return false;
             }
-            
-        // getToken();
-
-        ImageButton profile = (ImageButton) findViewById(R.id.navProfile);
-        profile.setOnClickListener(this);
-        ImageButton addItem = (ImageButton) findViewById(R.id.plusItem);
-        addItem.setOnClickListener(this);
-        ImageButton chats = (ImageButton) findViewById(R.id.nav_chat);
-        chats.setOnClickListener(this);
-
+        });
     }
 
 
