@@ -58,9 +58,10 @@ public class ProfileActivity extends AppCompatActivity {
         documentReference.update(updates)
                 .addOnSuccessListener(unused -> {
                     preferenceManager.clear();
-                    startActivity(new Intent(getApplicationContext(), TitleActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), TitleActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     FirebaseAuth.getInstance().signOut();
-                    finish();
+                    startActivity(intent);
                 })
                 .addOnFailureListener(e -> showToast("Unable to sign out"));
     }
