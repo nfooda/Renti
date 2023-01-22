@@ -77,7 +77,6 @@
                         android:textColor="@color/black"/>
 
                     <TextView
-                        android:id="@+id/priceRate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -113,7 +112,6 @@
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/deposit"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -155,15 +153,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="15dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
-                        android:text="Owner's Name"
-                        android:textColor="@color/black"/>
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:text="Owner's Name"
+                    android:textColor="@color/black"/>
+
                 <ImageButton
                     android:layout_width="23dp"
                     android:layout_height="30dp"
@@ -179,7 +173,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
-            
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -197,7 +190,6 @@
                     android:text="Description &amp; Rules"
                     android:textColor="@color/black"/>
                 <TextView
-                    android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/filler_dsc"

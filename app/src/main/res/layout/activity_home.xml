@@ -25,29 +25,22 @@
 
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="78dp"
+            android:layout_height="70dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:layout_marginRight="30dp"
             android:backgroundTint="#5BC0F8"
-            app:srcCompat="@drawable/round_notifications_none_24" />
+            app:srcCompat="@drawable/icons8_notification_100" />
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
+        android:orientation="horizontal">
 
-        <android.widget.SearchView
-            android:id="@+id/searchView2"
+        <SearchView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:queryHint="Looking for an item?"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
     <TextView
@@ -64,41 +57,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:id="@+id/categories"
         android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
-        android:paddingBottom="10dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="30dp"
         >
 
         <ImageButton
-            android:id="@+id/cars"
-            android:tag="Cars"
+            android:id="@+id/carButton"
             android:layout_width="130dp"
             android:layout_height="130dp"
+            android:layout_gravity="left"
             android:src="@drawable/cars_button"
             android:text="Cars"
             android:textAllCaps="false"
             android:background="@null"
-            android:scaleType="fitCenter"
-            android:onClick="BtnClickHandler"/>
+            android:scaleType="fitCenter"/>
 
         <ImageButton
-            android:id="@+id/clothing"
-            android:tag="Clothing"
             android:layout_width="130dp"
             android:layout_height="130dp"
+            android:layout_gravity="right"
             android:src="@drawable/clothing_button"
             android:text="Clothing"
             android:textAllCaps="false"
-            android:translationX="50dp"
+            android:translationX="70dp"
             android:background="@null"
-            android:scaleType="fitCenter"
-            android:onClick="BtnClickHandler"/>
+            android:scaleType="fitCenter"/>
 
     </LinearLayout>
 
@@ -106,13 +95,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
-        android:paddingBottom="10dp">
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="30dp">
 
         <ImageButton
-            android:id="@+id/appliances"
-            android:tag="Appliances"
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_gravity="left"
@@ -120,22 +107,18 @@
             android:text="Appliances"
             android:textAllCaps="false"
             android:background="@null"
-            android:scaleType="fitCenter"
-            android:onClick="BtnClickHandler"/>
+            android:scaleType="fitCenter"/>
 
         <ImageButton
-            android:id="@+id/books"
-            android:tag="Books"
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_gravity="right"
             android:src="@drawable/books_button"
             android:text="Books"
             android:textAllCaps="false"
-            android:translationX="50dp"
+            android:translationX="70dp"
             android:background="@null"
-            android:scaleType="fitCenter"
-            android:onClick="BtnClickHandler"/>
+            android:scaleType="fitCenter"/>
 
     </LinearLayout>
 
@@ -143,12 +126,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
-        android:paddingBottom="10dp">
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="30dp">
         <ImageButton
-            android:id="@+id/realEstate"
-            android:tag="RealEstate"
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:src="@drawable/real_estate_button"
@@ -156,22 +137,18 @@
             android:textAllCaps="false"
             android:layout_gravity="left"
             android:background="@null"
-            android:scaleType="fitCenter"
-            android:onClick="BtnClickHandler"/>
+            android:scaleType="fitCenter"/>
 
         <ImageButton
-            android:id="@+id/bikes"
-            android:tag="Bikes"
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_gravity="right"
             android:text="Bikes"
             android:src="@drawable/bikes_button"
             android:textAllCaps="false"
-            android:translationX="50dp"
+            android:translationX="70dp"
             android:background="@null"
-            android:scaleType="fitCenter"
-            android:onClick="BtnClickHandler"/>
+            android:scaleType="fitCenter"/>
 
     </LinearLayout>
     </LinearLayout>
@@ -192,44 +169,42 @@
         >
 
         <ImageButton
-            android:layout_width="8dp"
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
             android:layout_weight="1"
             android:backgroundTint="#5BC0F8"
-            app:srcCompat="@drawable/ic_round_home_24"/>
+            app:srcCompat="@drawable/ic_baseline_home_24" />
 
         <ImageButton
             android:id="@+id/nav_chat"
-            android:layout_width="8dp"
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="#5BC0F8"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/ic_outline_chat_24" />
-            
         <View
             android:layout_width="30dp"
             android:layout_weight="1"
             android:layout_height="1dp"/>
 
         <ImageButton
-            android:id="@+id/navTrack"
-            android:layout_width="8dp"
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="#5BC0F8"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_outline_timeline_24" />
+            app:srcCompat="@drawable/icons8_line_chart_100" />
 
         <ImageButton
             android:id="@+id/navProfile"
-            android:layout_width="8dp"
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="#5BC0F8"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_outline_person_24" />
+            app:srcCompat="@drawable/ic_outline_account_circle_24" />
 
     </LinearLayout>
 
