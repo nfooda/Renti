@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
@@ -28,13 +29,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/user"
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/user_image"
                 android:padding="10dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="20dp"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_90sdp"
+                android:background="@drawable/background_image"
+                android:scaleType="centerCrop"
+                app:riv_oval="true"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
@@ -44,6 +48,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="USER NAME"
@@ -61,6 +66,7 @@
                     android:isIndicator="true"/>
 
                 <TextView
+                    android:id="@+id/city"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="City, Country"
@@ -70,8 +76,21 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_rounded_button"
+            android:layout_marginTop="15dp"
+            android:text="Log Out"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:backgroundTint="#2C64C6"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,9 +99,80 @@
             android:textSize="25dp"
             android:padding="20dp"/>
     </LinearLayout>
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
+    </ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="@null">
+
+        <LinearLayout
+            android:id="@+id/navBar"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:padding="10dp"
+            android:background="@color/blue_2"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:layout_alignParentBottom="true"
+            >
+
+            <ImageButton
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:layout_weight="1"
+                android:backgroundTint="#5BC0F8"
+                app:srcCompat="@drawable/ic_outline_home_24" />
+
+            <ImageButton
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#5BC0F8"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_outline_chat_24" />
+            <View
+                android:layout_width="30dp"
+                android:layout_weight="1"
+                android:layout_height="1dp"/>
+
+            <ImageButton
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#5BC0F8"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/icons8_line_chart_100" />
+
+            <ImageButton
+                android:id="@+id/navProfile"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#5BC0F8"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_baseline_account_circle_24" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/round_button"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/icons8_plus_math_100" />
+
+    </RelativeLayout>
 
 </LinearLayout>

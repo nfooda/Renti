@@ -197,18 +197,17 @@
             android:scaleType="centerCrop"
             android:layout_weight="1"
             android:backgroundTint="#5BC0F8"
-            app:srcCompat="@drawable/ic_round_home_24"
-            android:onClick="BtnClickHandler"/>
+            app:srcCompat="@drawable/ic_round_home_24"/>
 
         <ImageButton
-            android:id="@+id/navChat"
+            android:id="@+id/nav_chat"
             android:layout_width="8dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="#5BC0F8"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_outline_chat_24"
-            android:onClick="BtnClickHandler"/>
+            app:srcCompat="@drawable/ic_outline_chat_24" />
+            
         <View
             android:layout_width="30dp"
             android:layout_weight="1"
@@ -221,8 +220,7 @@
             android:layout_weight="1"
             android:backgroundTint="#5BC0F8"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_outline_timeline_24"
-            android:onClick="BtnClickHandler"/>
+            app:srcCompat="@drawable/ic_outline_timeline_24" />
 
         <ImageButton
             android:id="@+id/navProfile"
@@ -231,13 +229,12 @@
             android:layout_weight="1"
             android:backgroundTint="#5BC0F8"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_outline_person_24"
-            android:onClick="BtnClickHandler"/>
+            app:srcCompat="@drawable/ic_outline_person_24" />
 
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/addItem"
+        android:id="@+id/plusItem"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
@@ -246,8 +243,7 @@
         android:background="@drawable/round_button"
         android:padding="10dp"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/icons8_plus_math_100"
-        android:onClick="BtnClickHandler"/>
+        app:srcCompat="@drawable/icons8_plus_math_100" />
 
 </RelativeLayout>
 
