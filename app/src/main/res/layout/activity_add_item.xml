@@ -213,6 +213,7 @@
             android:scaleType="fitCenter"
             android:padding="30dp"
             app:backgroundTint="@color/dark_grey"/>
+
         <Button
             android:id="@+id/confirmBtn"
             android:layout_width="match_parent"
