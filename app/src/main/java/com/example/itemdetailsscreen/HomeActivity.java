@@ -16,9 +16,10 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.prefs.PreferenceChangeEvent;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     PreferenceManager preferenceManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,29 +30,21 @@ public class HomeActivity extends AppCompatActivity {
         // getToken();
 
         ImageButton cars = (ImageButton) findViewById(R.id.carButton);
-        cars.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this, ItemsListActivity.class);
-                startActivity (i);
-
-            }
-        });
+        cars.setOnClickListener(this);
         ImageButton profile = (ImageButton) findViewById(R.id.navProfile);
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this, ProfileActivity.class);
-                startActivity (i);
+        profile.setOnClickListener(this);
+        ImageButton addItem = (ImageButton) findViewById(R.id.plusItem);
+        addItem.setOnClickListener(this);
 
-            }
-        });
         ImageButton chats = (ImageButton) findViewById(R.id.nav_chat);
         chats.setOnClickListener(view -> {
             Intent i = new Intent(HomeActivity.this, RecentChatsActivity.class);
             startActivity(i);
         });
+
     }
+
+
 
 
     private void getToken() {
@@ -72,4 +65,24 @@ public class HomeActivity extends AppCompatActivity {
     private void showToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onClick(View v) {
+        Intent i;
+        switch (v.getId()) {
+            case R.id.carButton:
+                i = new Intent(HomeActivity.this, ItemsListActivity.class);
+                startActivity(i);
+                break;
+            case R.id.navProfile:
+                i = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(i);
+                break;
+            case R.id.plusItem:
+                i = new Intent(HomeActivity.this, AddItemActivity.class);
+                startActivity(i);
+                break;
+        }
+    }
+
 }

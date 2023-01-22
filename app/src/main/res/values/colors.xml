@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue_2">#5BC0F8</color>
     <color name="blue_1">#0081C9</color>
+    <color name="dark_grey">#5A5A5A</color>
     <!-- for chat -->
     <color name="primary">#1C2E46</color>
     <color name="primary_dark">#142232</color>
