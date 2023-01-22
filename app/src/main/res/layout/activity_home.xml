@@ -174,15 +174,16 @@
             android:scaleType="centerCrop"
             android:layout_weight="1"
             android:backgroundTint="#5BC0F8"
-            app:srcCompat="@drawable/icons8_home_page_100" />
+            app:srcCompat="@drawable/ic_baseline_home_24" />
 
         <ImageButton
+            android:id="@+id/nav_chat"
             android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="#5BC0F8"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/icons8_chat_message_100" />
+            app:srcCompat="@drawable/ic_outline_chat_24" />
         <View
             android:layout_width="30dp"
             android:layout_weight="1"
@@ -203,7 +204,7 @@
             android:layout_weight="1"
             android:backgroundTint="#5BC0F8"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/icons8_avatar_100" />
+            app:srcCompat="@drawable/ic_outline_account_circle_24" />
 
     </LinearLayout>
 

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "447439254886",
+    "project_id": "rentiapp-a67b3",
+    "storage_bucket": "rentiapp-a67b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:447439254886:android:57cf43a2a1ca0eb07d84a7",
+        "android_client_info": {
+          "package_name": "com.example.itemdetailsscreen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "447439254886-72houtm671ehe6a890vj31mel8vib88v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiiRcVqwWAo5ozvZ-CnyHKajVQes9G70U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "447439254886-72houtm671ehe6a890vj31mel8vib88v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
