@@ -95,7 +95,7 @@
             android:src="@drawable/clothing_button"
             android:text="Clothing"
             android:textAllCaps="false"
-            android:translationX="60dp"
+            android:translationX="50dp"
             android:background="@null"
             android:scaleType="fitCenter"
             android:onClick="BtnClickHandler"/>
@@ -132,7 +132,7 @@
             android:src="@drawable/books_button"
             android:text="Books"
             android:textAllCaps="false"
-            android:translationX="60dp"
+            android:translationX="50dp"
             android:background="@null"
             android:scaleType="fitCenter"
             android:onClick="BtnClickHandler"/>
@@ -168,7 +168,7 @@
             android:text="Bikes"
             android:src="@drawable/bikes_button"
             android:textAllCaps="false"
-            android:translationX="60dp"
+            android:translationX="50dp"
             android:background="@null"
             android:scaleType="fitCenter"
             android:onClick="BtnClickHandler"/>

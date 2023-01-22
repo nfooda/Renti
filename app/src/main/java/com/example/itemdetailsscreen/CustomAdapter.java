@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -77,6 +80,22 @@ public class CustomAdapter extends ArrayAdapter<Item> implements Filterable {
         viewHolder.rate.setText(String.valueOf(items.get(i).rating));
         viewHolder.rateNo.setText("("+String.valueOf(4)+")");
 //        new DownloadImageTask( viewHolder.photo).execute(items.get(i).imagesURLs.get(0));
+//        String imageURL = items.get(i).imagesURLs.get(0);
+        if(items.get(i).imagesURLs.size()>0) {
+            String imageURL = items.get(i).imagesURLs.get(0);
+
+            Picasso.Builder builder = new Picasso.Builder(context.getApplicationContext());
+            builder.listener(new Picasso.Listener() {
+                @Override
+                public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                    exception.printStackTrace();
+                }
+
+            });
+            builder.build().load("https://docs.google.com/uc?id=1uIzwQir4XKkki_siC_1-9YXgaEtr2OG0")
+                    .into(viewHolder.photo);
+        }
+
 
         return view;
     }

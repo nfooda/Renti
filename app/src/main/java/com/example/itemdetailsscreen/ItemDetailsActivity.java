@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.smarteist.autoimageslider.SliderView;
@@ -17,10 +18,33 @@ public class ItemDetailsActivity extends AppCompatActivity {
     // Urls of our images.
     int honda = R.drawable.honda_1;
     int honda_2 = R.drawable.honda_2;
+    Item item;
+    TextView itemTitle;
+    TextView location;
+    TextView price;
+    TextView priceRate;
+    TextView deposit;
+    TextView description;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_details);
+        Bundle bundle = getIntent().getExtras();
+
+        item = (Item) bundle.getSerializable("item");
+        itemTitle = (TextView) findViewById(R.id.itemTitle);
+        location = (TextView) findViewById(R.id.location);
+        price = (TextView) findViewById(R.id.price);
+        priceRate = (TextView) findViewById(R.id.priceRate);
+        deposit = (TextView) findViewById(R.id.deposit);
+        description = (TextView) findViewById(R.id.description);
+
+        itemTitle.setText(item.itemName);
+        location.setText(item.locationCity+" , Egypt");
+        price.setText(String.valueOf(item.rateNum));
+        priceRate.setText(" / "+item.rateUnit);
+        deposit.setText(String.valueOf(item.deposit));
+        description.setText(item.description);
 
         // we are creating array list for storing our image urls.
         ArrayList<SliderData> sliderDataArrayList = new ArrayList<>();
