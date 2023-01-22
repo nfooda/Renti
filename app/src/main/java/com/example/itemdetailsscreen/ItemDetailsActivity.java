@@ -88,5 +88,9 @@ public class ItemDetailsActivity extends AppCompatActivity {
             intent.putExtra(Constants.KEY_USER, dummyUser);
             startActivity(intent);
         });
+
+        binding.rentRequestBtn.setOnClickListener(
+                v -> startActivity(new Intent(getApplicationContext(), RentRequestActivity.class))
+        );
     }
 }
