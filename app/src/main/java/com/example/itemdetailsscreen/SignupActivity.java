@@ -6,10 +6,12 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -29,9 +31,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -82,11 +95,10 @@ public class SignupActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            // Sign up success, update UI with the signed-up user's information
                             Log.d("AUTH", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             addUserToDatabase(user);
-                            updateUI();
                         } else {
                             // If sign in fails, display a message to the user.
                             loading(false);
@@ -108,6 +120,17 @@ public class SignupActivity extends AppCompatActivity {
         user.put(Constants.KEY_CITY, binding.city.getText().toString());
         user.put(Constants.KEY_USER_ID, authUser.getUid());
         // TODO: Send data to mySql database
+        // http://10.0.2.2:3000/addUser?email=ali_2@gmail.com&phone=01126565254&name=Mohamed Farid
+        // &firebaseId=9kfhjakfjadkfjdasl&password=password&locationCity=Cairo&rating=4.8
+        new insertUser().execute(
+                binding.email.getText().toString(),
+                binding.phone.getText().toString(),
+                binding.fullName.getText().toString(),
+                authUser.getUid(),
+                binding.password.getText().toString(),
+                binding.city.getText().toString(),
+                "0"
+        );
         database.collection(Constants.KEY_COLLECTION_USERS)
                 .add(user)
                 .addOnSuccessListener(documentReference -> {
@@ -201,4 +224,69 @@ public class SignupActivity extends AppCompatActivity {
 
         }
     }
+
+    private class insertUser extends AsyncTask<String, Void, String> {
+
+        // Runs in UI before background thread is called
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        // Runs in a background thread
+        @Override
+        protected String doInBackground(String... params) {
+            String response= "";
+            try {
+                URL url = new URL(
+                        "http://10.0.2.2:3000/addUser?email=" + params[0] +
+                        "&phone=" + params[1] +
+                        "&name=" + params[2] +
+                        "&firebaseId=" + params[3] +
+                        "&password=" + params[4] +
+                        "&locationCity=" + params[5] +
+                        "&rating=" + params[6]
+                );
+                for (int i = 0;  i < 7; i++) {
+                    System.out.println("param is: " +  params[i]);
+                }
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("GET");
+                int responseCode = con.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) { // success
+                    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    String inputLine;
+                    while ((inputLine = in.readLine()) != null) {
+                        response += inputLine;
+                    }
+                    in.close();
+
+                    // print result
+                    System.out.println("response is: " + response);
+                    System.out.println("GET request worked.");
+                } else {
+                    System.out.println("GET request did not work.");
+                }
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return response;
+        }
+        // This is called from background thread but runs in UI
+        @Override
+        protected void onProgressUpdate(Void... voids) {
+            super.onProgressUpdate();
+        }
+        // This runs in UI when background thread finishes
+        @Override
+        protected void onPostExecute(String result){
+            super.onPostExecute(result);
+            updateUI();
+        }
+    }
+
 }

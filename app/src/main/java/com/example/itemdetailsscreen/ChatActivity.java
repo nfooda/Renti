@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.itemdetailsscreen.adapters.ChatAdapter;
 import com.example.itemdetailsscreen.databinding.ActivityChatBinding;
 import com.example.itemdetailsscreen.models.ChatMessage;
+import com.example.itemdetailsscreen.models.Item;
 import com.example.itemdetailsscreen.models.User;
 import com.example.itemdetailsscreen.utilities.Constants;
 import com.example.itemdetailsscreen.utilities.PreferenceManager;
@@ -39,6 +40,7 @@ public class ChatActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private FirebaseFirestore database;
     private String conversionId = null;
+    private Item item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,13 @@ public class ChatActivity extends AppCompatActivity {
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         loadReceiverDetails();
+        item = (Item) getIntent().getSerializableExtra("item");
+        if (item != null) {
+            binding.textviewName.setText(item.itemName);
+            binding.textviewPrice.setText(String.valueOf(item.rateNum));
+        } else {
+            binding.linearLayout.setVisibility(View.GONE);
+        }
         // TODO: Create load Item Details
         setListeners();
         init();

@@ -8,9 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+
+import com.example.itemdetailsscreen.models.Item;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,22 +19,23 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
-import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
 public class ItemsListActivity extends AppCompatActivity {
+
     ListView listview;
     ArrayList<Item> itemsList = new ArrayList<Item>();
     SearchView search;
     CustomAdapter customAdapter;
     String [] asyncInput = new String[2];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_list);
+
         listview = (ListView) findViewById(R.id.listview);
         Bundle bundle = getIntent().getExtras();
         String category;
@@ -49,10 +51,9 @@ public class ItemsListActivity extends AppCompatActivity {
             asyncInput[0]=String.valueOf(2);
             asyncInput[1]=bundle.getString("searchWord");
         }
-            new FetchItemsList().execute(asyncInput);
+        new FetchItemsList().execute(asyncInput);
 
         SetupSearchView();
-
     }
 
 
@@ -66,7 +67,6 @@ public class ItemsListActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<Item> itemsList) {
             super.onPostExecute(itemsList);
-
             customAdapter = new CustomAdapter(getApplicationContext(),R.layout.listview_item,itemsList);
             listview.setAdapter(customAdapter);
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -183,6 +183,3 @@ public class ItemsListActivity extends AppCompatActivity {
         });
     }
 }
-
-
-

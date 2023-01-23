@@ -1,13 +1,17 @@
 package com.example.itemdetailsscreen;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,11 +21,23 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.itemdetailsscreen.utilities.Constants;
+import com.example.itemdetailsscreen.utilities.PreferenceManager;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -32,29 +48,34 @@ import java.util.ArrayList;
 
 
 public class AddItemActivity extends AppCompatActivity implements View.OnClickListener{
+
+    private PreferenceManager preferenceManager;
     private static final int PICK_IMAGE_MULTIPLE = 1;
-    ArrayList<Uri> mArrayUri;
+    StorageReference riversRef;
+    FirebaseStorage storage;
+    ArrayList<Uri> mArrayUri, fireBaseURI;
+    ArrayList<String> mArrayNames;
     ImageButton AddPhoto;
     String title,location,des,itemPrice,unit,category,insurance;
     EditText itemTitle,description,price, insuranceID;
     Spinner spinnerPeriods,citySpinner,CatSpinner;
-    Uri selctedImage;
+    UploadTask uploadTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferenceManager = new PreferenceManager(getApplicationContext());
         setContentView(R.layout.activity_add_item);
 
+        storage= FirebaseStorage.getInstance();
+
         mArrayUri =new ArrayList<Uri>();
+        fireBaseURI=new ArrayList<Uri>();
+        mArrayNames=new ArrayList<String>();
 
         itemTitle = (EditText) findViewById(R.id.item_title);
         description = (EditText) findViewById(R.id.descriptionID);
         price = (EditText) findViewById(R.id.priceID);
         insuranceID = (EditText) findViewById(R.id.insuranceID);
-
-      /*  itemTitle.setOnKeyListener(this);
-        description.setOnKeyListener(this);
-        price.setOnKeyListener(this);
-        insuranceID.setOnKeyListener(this);*/
 
         Button confirm = (Button) findViewById(R.id.confirmBtn);
         confirm.setOnClickListener(this);
@@ -99,7 +120,7 @@ public class AddItemActivity extends AppCompatActivity implements View.OnClickLi
                 location = citySpinner.getSelectedItem().toString();
                 category=CatSpinner.getSelectedItem().toString();
                 insurance=insuranceID.getText().toString();
-                new insertDetails().execute(title,"user@gmail.com",location,des,itemPrice, unit, category,insurance,mArrayUri.get(0).toString());
+                new insertDetails().execute(title,preferenceManager.getString(Constants.KEY_EMAIL),location,des,itemPrice, unit, category,insurance);
                 break;
         }
     }
@@ -115,16 +136,22 @@ public class AddItemActivity extends AppCompatActivity implements View.OnClickLi
                 ClipData ClipData = data.getClipData();
                 int x = ClipData.getItemCount();
                 for (int i = 0; i < x; i++) {
+                    System.out.println("I value isss:" + Integer.toString(i));
                     // adding imageuri in array
                     Uri imageUri = ClipData.getItemAt(i).getUri();
-                    mArrayUri.add(imageUri);
+                    String fileName= imageUri.getLastPathSegment();
+                    mArrayNames.add(fileName);
+                    System.out.println("IMAGE NAME IS: "+fileName);
+                    uploadLocalFiles(imageUri);
                 }
                 String numOfImages=Integer.toString(x);
                 Toast.makeText(this, numOfImages + " images uploaded.", Toast.LENGTH_LONG).show();
             }else{
                 Uri imageUrl = data.getData();
-                mArrayUri.add(imageUrl);
+                String fileName= imageUrl.getLastPathSegment();
+                mArrayNames.add(fileName);
                 Toast.makeText(this, "1 image uploaded.", Toast.LENGTH_LONG).show();
+                uploadLocalFiles(imageUrl);
             }
         } else {
             // show this if no image is selected
@@ -132,6 +159,22 @@ public class AddItemActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    public void uploadLocalFiles(Uri x) {
+        riversRef = storage.getReference().child("images/" + x.getLastPathSegment());
+        uploadTask = riversRef.putFile(x);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+                Toast.makeText(AddItemActivity.this, "Failed to upload image!", Toast.LENGTH_LONG).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(AddItemActivity.this, "Photo Uploaded to Firebase!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
     //http://10.0.2.2:3000/addItem?name=Car&ownerEmail=user@gmail.com&location=Alex&description=Very_Good_Car&price=100&unit=day&category=Cars&insurance=1000
     private class insertDetails extends AsyncTask<String, Void, String> {
         String itemID;
@@ -191,34 +234,11 @@ public class AddItemActivity extends AppCompatActivity implements View.OnClickLi
                 e.printStackTrace();
             }
 
-            try {
-                URL url2 = new URL("http://10.0.2.2:3000/uploadImage?itemID="+itemID + "&photoURL=" + params[8]);
-                System.out.println("Image_param is: " +  params[8]);
-                System.out.println("ItemID is: " +  itemID);
-                HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();
-                con2.setRequestMethod("GET");
-                int responseCode = con2.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) { // success
-                    BufferedReader in = new BufferedReader(new InputStreamReader(con2.getInputStream()));
-                    String inputLine;
-                    // StringBuffer response = new StringBuffer();
-                    while ((inputLine = in.readLine()) != null) {
-                        // response.append(inputLine);
-                        response2 = response2 + inputLine;
-                    }
-                    in.close();
-                    // print result
-                    System.out.println("response2 is: " + response);
-                    System.out.println("GET request2 WORKED.");
-                } else {
-                    System.out.println("GET request2 did not work.");
-                }
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            for(int i=0;i<mArrayNames.size();i++){
+                Log.v("Item", "itemID is: " + itemID);
+                System.out.println("Image name NOWW is: "+mArrayNames.get(i));
+
+                API_uploadImage(itemID, mArrayNames.get(i));
             }
 
             return response2;
@@ -238,5 +258,38 @@ public class AddItemActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(i);
             finish();
         }
+    }
+
+    public String API_uploadImage(String id, String url){
+        String response2= "";
+        try {
+            URL url2 = new URL("http://10.0.2.2:3000/uploadImage?itemID="+id + "&photoURL=" + url);
+            System.out.println("Image_param is: " +  url);
+            System.out.println("ItemID is: " +  id);
+            HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();
+            con2.setRequestMethod("GET");
+            int responseCode = con2.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) { // success
+                BufferedReader in = new BufferedReader(new InputStreamReader(con2.getInputStream()));
+                String inputLine;
+                // StringBuffer response = new StringBuffer();
+                while ((inputLine = in.readLine()) != null) {
+                    // response.append(inputLine);
+                    response2 = response2 + inputLine;
+                }
+                in.close();
+                // print result
+                System.out.println("GET request2 WORKED.");
+            } else {
+                System.out.println("GET request2 did not work.");
+            }
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response2;
     }
 }

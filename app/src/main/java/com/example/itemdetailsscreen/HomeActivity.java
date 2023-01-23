@@ -6,84 +6,56 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
+
 import com.example.itemdetailsscreen.utilities.Constants;
 import com.example.itemdetailsscreen.utilities.PreferenceManager;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.messaging.FirebaseMessaging;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
-import java.util.prefs.PreferenceChangeEvent;
-import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     PreferenceManager preferenceManager;
-    private LinearLayout categories;
-    ArrayList<ImageButton> categoriesButtons= new ArrayList<ImageButton>();
-
-    ListView listview;
-    ArrayList<Item> itemsList = new ArrayList<Item>();
     SearchView search;
-    CustomAdapter customAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         preferenceManager = new PreferenceManager(getApplicationContext());
         setContentView(R.layout.activity_home);
-        // getToken();
+        setNavBarListeners();
+        search = (SearchView) findViewById(R.id.searchView2);
+        SetupSearchView();
+        updateWelcomMessage();
+    }
 
+    private void updateWelcomMessage() {
+        TextView tvWelcome = findViewById(R.id.welcome);
+        tvWelcome.setText("Home");
+    }
+
+    private void setNavBarListeners() {
         ImageButton profile = (ImageButton) findViewById(R.id.navProfile);
         profile.setOnClickListener(this);
         ImageButton addItem = (ImageButton) findViewById(R.id.plusItem);
         addItem.setOnClickListener(this);
-        ImageButton chats = (ImageButton) findViewById(R.id.nav_chat);
+        ImageButton chats = (ImageButton) findViewById(R.id.navChat);
         chats.setOnClickListener(this);
-
-
-        categories=findViewById(R.id.categories);
-        int count=0;
-        for(int i=0;i<categories.getChildCount();i++){
-            LinearLayout categories_row = (LinearLayout) categories.getChildAt(i);
-            for(int j=0;j<categories_row.getChildCount();j++){
-                ImageButton b  = (ImageButton)categories_row.getChildAt(j);
-                categoriesButtons.add(b);
-                count++;
-            }
-        }
-
-        search = (SearchView) findViewById(R.id.searchView2);
-        SetupSearchView();
+        ImageButton track = (ImageButton) findViewById(R.id.navTrack);
+        track.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View view) {
-        ImageButton button = (ImageButton) view;
 
         Intent intent;
         switch (view.getId()){
-            case R.id.cars:
-            case R.id.clothing:
-            case R.id.appliances:
-            case R.id.books:
-            case R.id.realEstate:
-            case R.id.bikes:
-                String categoryName = button.getTag().toString();
-                intent=new Intent(HomeActivity.this,ItemsListActivity.class);
-                intent.putExtra("listChoice",1);
-                intent.putExtra("categoryName", categoryName);
-                intent.putExtra("searchWord","");
-                startActivity(intent);
-                break;
 
             case R.id.navTrack:
+                intent = new Intent(HomeActivity.this, TrackingActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.navProfile:
@@ -96,52 +68,24 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
 
-            case R.id.nav_chat:
+            case R.id.navChat:
                 intent = new Intent(HomeActivity.this, RecentChatsActivity.class);
                 startActivity(intent);
                 break;
-
         }
     }
 
+    // to handle category buttons
     public void BtnClickHandler(View view) {
         ImageButton button = (ImageButton) view;
-
         Intent intent;
-        switch (view.getId()) {
-            case R.id.cars:
-            case R.id.clothing:
-            case R.id.appliances:
-            case R.id.books:
-            case R.id.realEstate:
-            case R.id.bikes:
-                String categoryName = button.getTag().toString();
-                intent = new Intent(HomeActivity.this, ItemsListActivity.class);
-                intent.putExtra("listChoice", 1);
-                intent.putExtra("categoryName", categoryName);
-                intent.putExtra("searchWord", "");
-                startActivity(intent);
-                break;
 
-            case R.id.navTrack:
-                break;
-
-            case R.id.navProfile:
-                intent = new Intent(HomeActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                break;
-
-            case R.id.plusItem:
-                intent = new Intent(HomeActivity.this, AddItemActivity.class);
-                startActivity(intent);
-                break;
-
-            case R.id.nav_chat:
-                Intent i = new Intent(HomeActivity.this, RecentChatsActivity.class);
-                startActivity(i);
-                break;
-
-        }
+        String categoryName = button.getTag().toString();
+        intent = new Intent(HomeActivity.this, ItemsListActivity.class);
+        intent.putExtra("listChoice", 1);
+        intent.putExtra("categoryName", categoryName);
+        intent.putExtra("searchWord", "");
+        startActivity(intent);
     }
 
     private void SetupSearchView(){
@@ -168,24 +112,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             }
         });
-    }
-
-
-
-
-    private void getToken() {
-        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(this::updateToken);
-    }
-
-    private void updateToken(String token) {
-        FirebaseFirestore database = FirebaseFirestore.getInstance();
-        DocumentReference documentReference =
-                database.collection(Constants.KEY_COLLECTION_USERS).document(
-                        preferenceManager.getString(Constants.KEY_FIREBASE_ID)
-                );
-        documentReference.update(Constants.KEY_FCM_TOKEN, token)
-                .addOnSuccessListener(unused -> showToast("Token updated Successfully"))
-                .addOnFailureListener(e -> showToast("Unable to update token"));
     }
 
     private void showToast(String message) {

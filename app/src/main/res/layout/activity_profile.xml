@@ -94,7 +94,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="User's Listings"
+            android:text=""
             android:textStyle="bold"
             android:textSize="25dp"
             android:padding="20dp"/>
@@ -124,6 +124,7 @@
             >
 
             <ImageButton
+                android:id="@+id/nav_home"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
@@ -132,6 +133,7 @@
                 app:srcCompat="@drawable/ic_outline_home_24" />
 
             <ImageButton
+                android:id="@+id/nav_chat"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -144,6 +146,7 @@
                 android:layout_height="1dp"/>
 
             <ImageButton
+                android:id="@+id/nav_track"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -163,6 +166,7 @@
         </LinearLayout>
 
         <ImageButton
+            android:id="@+id/plusItem"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_alignParentBottom="true"

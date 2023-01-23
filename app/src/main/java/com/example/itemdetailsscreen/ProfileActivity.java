@@ -36,6 +36,22 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void setListeners() {
         binding.logout.setOnClickListener(view -> logout());
+        binding.navTrack.setOnClickListener(
+                v -> startActivity(new Intent(getApplicationContext(), TrackingActivity.class))
+        );
+
+        binding.navHome.setOnClickListener(
+                v -> startActivity(new Intent(getApplicationContext(), HomeActivity.class))
+        );
+
+        binding.navChat.setOnClickListener(
+                v -> startActivity(new Intent(getApplicationContext(), RecentChatsActivity.class))
+        );
+
+        binding.plusItem.setOnClickListener(
+                v -> startActivity(new Intent(getApplicationContext(), AddItemActivity.class))
+        );
+
     }
 
     private void loadUserDetails() {

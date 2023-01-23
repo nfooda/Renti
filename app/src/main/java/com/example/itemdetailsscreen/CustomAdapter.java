@@ -1,23 +1,25 @@
 package com.example.itemdetailsscreen;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.itemdetailsscreen.models.Item;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -29,7 +31,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CustomAdapter extends ArrayAdapter<Item> implements Filterable {
     private Context context;
@@ -72,32 +73,55 @@ public class CustomAdapter extends ArrayAdapter<Item> implements Filterable {
         viewHolder.price = (TextView) view.findViewById(R.id.textview_price);
         viewHolder.rate = (TextView) view.findViewById(R.id.textview_rate);
         viewHolder.rateNo = (TextView) view.findViewById(R.id.textview_rateno);
-//        view.setTag(viewHolder);
 
         viewHolder.name.setText(items.get(i).itemName);
         viewHolder.price.setText(String.valueOf(items.get(i).rateNum));
         viewHolder.city.setText(items.get(i).locationCity);
         viewHolder.rate.setText(String.valueOf(items.get(i).rating));
         viewHolder.rateNo.setText("("+String.valueOf(4)+")");
-//        new DownloadImageTask( viewHolder.photo).execute(items.get(i).imagesURLs.get(0));
-//        String imageURL = items.get(i).imagesURLs.get(0);
+
         if(items.get(i).imagesURLs.size()>0) {
-            String imageURL = items.get(i).imagesURLs.get(0);
+            String imagePath = items.get(i).imagesURLs.get(0);
+            setImage(viewHolder.photo, imagePath);
 
-            Picasso.Builder builder = new Picasso.Builder(context.getApplicationContext());
-            builder.listener(new Picasso.Listener() {
-                @Override
-                public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
-                    exception.printStackTrace();
-                }
+        // items.get(i).bitmap = ((BitmapDrawable)viewHolder.photo.getDrawable()).getBitmap();
 
-            });
-            builder.build().load("https://docs.google.com/uc?id=1uIzwQir4XKkki_siC_1-9YXgaEtr2OG0")
-                    .into(viewHolder.photo);
+//            Picasso.Builder builder = new Picasso.Builder(context.getApplicationContext());
+//            builder.listener(new Picasso.Listener() {
+//                @Override
+//                public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+//                    exception.printStackTrace();
+//                }
+//
+//            });
+//            builder.build().load(imageURL)   // should put image picture
+//                    .into(viewHolder.photo);
         }
 
 
         return view;
+    }
+
+    private void setImage(ImageView imageView, String imageName) {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference dateRef = storageRef.child("images/" + imageName);
+        dateRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+        {
+            @Override
+            public void onSuccess(Uri downloadUrl)
+            {
+                Picasso.Builder builder = new Picasso.Builder(context.getApplicationContext());
+                builder.listener(new Picasso.Listener() {
+                    @Override
+                    public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                        exception.printStackTrace();
+                    }
+
+                });
+                builder.build().load(downloadUrl)   // should put image picture
+                        .into(imageView);
+            }
+        });
     }
 
     @Override
@@ -306,29 +330,6 @@ public class CustomAdapter extends ArrayAdapter<Item> implements Filterable {
         TextView rateNo;
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
 }
 

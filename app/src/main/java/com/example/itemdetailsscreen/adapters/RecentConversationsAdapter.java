@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.itemdetailsscreen.databinding.ItemContainerRecentConversationBinding;
 import com.example.itemdetailsscreen.listeners.ConversionListener;
 import com.example.itemdetailsscreen.models.ChatMessage;
-import com.example.itemdetailsscreen.models.Item;
 import com.example.itemdetailsscreen.models.User;
 
 import java.util.List;

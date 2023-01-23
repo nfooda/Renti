@@ -42,7 +42,29 @@ public class RecentChatsActivity extends AppCompatActivity implements Conversion
         setContentView(binding.getRoot());
         init();
         listenConversations();
+
+        setNavListeners();
     }
+
+    private void setNavListeners() {
+        
+        binding.navTrack.setOnClickListener(
+                v -> startActivity(new Intent(getApplicationContext(), TrackingActivity.class))
+        );
+
+        binding.navHome.setOnClickListener(
+                v -> startActivity(new Intent(getApplicationContext(), HomeActivity.class))
+        );
+
+        binding.navProfile.setOnClickListener(
+                v -> startActivity(new Intent(getApplicationContext(), ProfileActivity.class))
+        );
+
+        binding.plusItem.setOnClickListener(
+                v -> startActivity(new Intent(getApplicationContext(), AddItemActivity.class))
+        );
+    }
+
 
     private void init() {
         conversations = new ArrayList<>();

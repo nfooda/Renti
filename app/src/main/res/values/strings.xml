@@ -64,6 +64,9 @@
         <item>Real Estate</item>
         <item>Bikes</item>
     </string-array>
+    <string name="title_activity_tracking">TrackingActivity</string>
+    <string name="tab_text_1">Rented Items</string>
+    <string name="tab_text_2">Posted Items</string>
 
 
 </resources>

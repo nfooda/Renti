@@ -38,7 +38,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
         // Glide is use to load image
         // from url in your imageview.
-        viewHolder.imageViewBackground.setImageResource(sliderItem.getImgId());
+        viewHolder.imageViewBackground.setImageBitmap(sliderItem.getImgBitmap());
 //        Glide.with(viewHolder.itemView)
 //                .load(sliderItem.getImgUrl())
 //                .fitCenter()
